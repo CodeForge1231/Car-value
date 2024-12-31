@@ -3,7 +3,7 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email":"asds@asdasdd.com",
+    "email":"asds@fasdasddd.com",
     "password":"asdasdasd"
 }
 
@@ -23,4 +23,13 @@ Content-Type: application/json
 {
 
     "password":"421312"
+}
+
+### Sing in as an existing user
+POST  http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email":"asds@fasdasddd.com",
+    "password":"asdasdasd"
 }
