@@ -33,3 +33,9 @@ Content-Type: application/json
     "email":"asds@fasdasddd.com",
     "password":"asdasdasd"
 }
+
+
+
+### Sing out  
+POST  http://localhost:3000/auth/signout
+ 
