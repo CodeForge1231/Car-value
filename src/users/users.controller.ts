@@ -10,6 +10,7 @@ import {
   NotFoundException,
   Session,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dtos';
 import { UsersService } from './users.service';
@@ -20,6 +21,7 @@ import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { User } from './users.entity';
+import { AuthGuard } from 'src/guards/auth.guard';
 @Controller('auth')
 @UseInterceptors(CurrentUserInterceptor)
 @Serialize(UserDto)
@@ -48,6 +50,7 @@ export class UsersController {
   }
 
   @Post('/whoami')
+  @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: User) {
     return user;
   }
