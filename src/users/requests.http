@@ -34,8 +34,8 @@ Content-Type: application/json
     "password":"asdasdasd"
 }
 
-
-
 ### Sing out  
 POST  http://localhost:3000/auth/signout
  
+###    
+POST  http://localhost:3000/auth/whoami
