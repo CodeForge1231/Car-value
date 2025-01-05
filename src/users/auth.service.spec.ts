@@ -7,12 +7,24 @@ import { User } from './users.entity';
 describe('AuthService', () => {
   let service: AuthService;
   let fakeUsersService: Partial<UsersService>;
+
   beforeEach(async () => {
     // Create a fake copy of the users service
+    const users: User[] = [];
     fakeUsersService = {
-      find: () => Promise.resolve([]),
-      create: (email: string, password: string) =>
-        Promise.resolve({ id: 1, email, password } as User),
+      find: (email: string) => {
+        const filteredUsers = users.filter((x) => x.email === email);
+        return Promise.resolve(filteredUsers);
+      },
+      create: (email: string, password: string) => {
+        const user = {
+          id: Math.floor(Math.random() * 99999),
+          email,
+          password,
+        } as User;
+        users.push(user);
+        return Promise.resolve(user);
+      },
     };
     const module = await Test.createTestingModule({
       providers: [
@@ -60,17 +72,8 @@ describe('AuthService', () => {
   });
 
   it('returns a user if correct password is provided', async () => {
-    fakeUsersService.find = () =>
-      Promise.resolve([
-        {
-          id: 1,
-          email: 'a',
-          password:
-            'f78dccafda342924.30ec62acfa416f154219409ceda2d940a0deeeb981167f8d1d393410bf7b37d3',
-        } as User,
-      ]);
-
-    const user = await service.signin('test123@hasda.com', 'password');
+    await service.signup('asdf.asdf.com', 'password');
+    const user = await service.signin('asdf.asdf.com', 'password');
     expect(user).toBeDefined();
   });
 });
