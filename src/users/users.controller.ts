@@ -23,7 +23,6 @@ import { CurrentUserInterceptor } from './interceptors/current-user.interceptor'
 import { User } from './users.entity';
 import { AuthGuard } from '../guards/auth.guard';
 @Controller('auth')
-@UseInterceptors(CurrentUserInterceptor)
 @Serialize(UserDto)
 export class UsersController {
   constructor(
